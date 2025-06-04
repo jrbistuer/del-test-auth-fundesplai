@@ -18,7 +18,8 @@ export const appConfig: ApplicationConfig = {
       apiKey: "",
       authDomain: "",
       messagingSenderId: "",
-      measurementId: ""})),
+      measurementId: ""
+    })),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),
     provideStorage(() => getStorage())
