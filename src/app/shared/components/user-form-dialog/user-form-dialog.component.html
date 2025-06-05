@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Nuevo Usuario</h1>
+
+<mat-dialog-content [formGroup]="userForm" class="form-container">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="US_Nom" />
+    <mat-error *ngIf="f['US_Nom'].hasError('required') && (f['US_Nom'].touched || f['US_Nom'].dirty)">
+      El nombre es obligatorio.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Apellidos</mat-label>
+    <input matInput formControlName="US_Cognoms" />
+    <mat-error *ngIf="f['US_Cognoms'].hasError('required') && (f['US_Cognoms'].touched || f['US_Cognoms'].dirty)">
+      Los apellidos son obligatorios.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="US_Email" />
+    <mat-error *ngIf="f['US_Email'].hasError('required') && (f['US_Email'].touched || f['US_Email'].dirty)">
+      El email es obligatorio.
+    </mat-error>
+    <mat-error *ngIf="f['US_Email'].hasError('email') && (f['US_Email'].touched || f['US_Email'].dirty)">
+      Introduce un email válido.
+    </mat-error>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="userForm.invalid" (click)="onSave()">Guardar</button>
+</mat-dialog-actions>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { UserCredential } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
 		const user = await this.authService.register(this.credentials.value);
 
 		if (user) {
+			this.setTokenId(user);
 			this.router.navigateByUrl('/home', { replaceUrl: true });
 		} else {
 			this.showAlert('Registration failed', 'Please try again!');
@@ -46,10 +48,9 @@ export class LoginComponent implements OnInit {
 	}
 
 	async login() {
-
 		const user = await this.authService.login(this.credentials.value);
-
 		if (user) {
+			this.setTokenId(user);
 			this.router.navigateByUrl('/home', { replaceUrl: true });
 		} else {
 			this.showAlert('Login failed', 'Please try again!');
@@ -58,5 +59,11 @@ export class LoginComponent implements OnInit {
 
 	async showAlert(header: string, message: string) {
     console.log('OK!');
+	}
+
+	private async setTokenId(user: UserCredential) {
+		const token = await user.user.getIdToken();
+		console.log(token);
+		localStorage.setItem('token', token);
 	}
 }
