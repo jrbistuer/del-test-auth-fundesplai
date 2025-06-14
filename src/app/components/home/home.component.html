@@ -42,13 +42,76 @@
       </td>
     </ng-container>
 
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-icon-button color="primary" (click)="editUser(user)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteUser(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
 </mat-card>
-
 <button mat-raised-button color="accent" (click)="openUserForm()">
   Añadir usuario
 </button>
 
+<h1>Sesión de {{ authService.getCurrentUser()?.US_Email }}</h1>
+
+<h2>Mis pedidos</h2>
+
+<mat-card>
+  <table mat-table [dataSource]="(pedidos$ | async) ?? []" class="mat-elevation-z1 full-width">
+
+    <!-- ID -->
+    <ng-container matColumnDef="PED_Id">
+      <th mat-header-cell *matHeaderCellDef>ID</th>
+      <td mat-cell *matCellDef="let order">{{ order.PED_Id }}</td>
+    </ng-container>
+
+    <!-- Nombre -->
+    <ng-container matColumnDef="PED_Nombre">
+      <th mat-header-cell *matHeaderCellDef>Nombre</th>
+      <td mat-cell *matCellDef="let order">{{ order.PED_Nombre }}</td>
+    </ng-container>
+
+    <!-- Descripción -->
+    <ng-container matColumnDef="PED_Descripcion">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let order">{{ order.PED_Descripcion }}</td>
+    </ng-container>
+
+    <!-- Precio -->
+    <ng-container matColumnDef="PED_Precio">
+      <th mat-header-cell *matHeaderCellDef>Precio</th>
+      <td mat-cell *matCellDef="let order">{{ order.PED_Precio | currency:'EUR' }}</td>
+    </ng-container>
+
+    <!-- Estado -->
+    <ng-container matColumnDef="PED_Status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let order">
+        {{ order.PED_Status  }}
+      </td>
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let order">
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedPedidosColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedPedidosColumns;"></tr>
+
+  </table>
+</mat-card>

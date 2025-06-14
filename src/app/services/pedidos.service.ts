@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { IUser } from '../../model/user.model';
+import { IPedido } from '../../model/pedido.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class PedidosService {
 
   private apiUrl = 'http://localhost:8000';
 
@@ -19,34 +19,34 @@ export class UserService {
     });
   }
 
-  getUsers(): Observable<IUser[]> {
-    return this.http.get<IUser[]>(`${this.apiUrl}/users`, {
+  getPedidos(): Observable<IPedido[]> {
+    return this.http.get<IPedido[]>(`${this.apiUrl}/pedidos`, {
       headers: this.getAuthHeaders()
     }).pipe(
-      map(users => users ?? [])
+      map(pedidos => pedidos ?? [])
     );
   }
 
-  getUser(id: number): Observable<IUser> {
-    return this.http.get<IUser>(`${this.apiUrl}/users/${id}`, {
+  getPedido(id: number): Observable<IPedido> {
+    return this.http.get<IPedido>(`${this.apiUrl}/pedidos/${id}`, {
       headers: this.getAuthHeaders()
     });
   }
 
-  createUser(user: IUser): Observable<any> {
-    return this.http.post(`${this.apiUrl}/users`, user, {
+  createPedido(pedido: IPedido): Observable<any> {
+    return this.http.post(`${this.apiUrl}/pedidos`, pedido, {
       headers: this.getAuthHeaders()
     });
   }
 
-  updateUser(user: IUser): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users`, user, {
+  updatePedido(pedido: IPedido): Observable<any> {
+    return this.http.put(`${this.apiUrl}/pedidos`, pedido, {
       headers: this.getAuthHeaders()
     });
   }
 
-  deleteUser(userId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/users/${userId}`, {
+  deletePedido(pedidoId: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/pedidos/${pedidoId}`, {
       headers: this.getAuthHeaders()
     });
   }

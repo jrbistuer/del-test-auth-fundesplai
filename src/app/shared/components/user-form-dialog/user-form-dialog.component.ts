@@ -34,11 +34,16 @@ export class UserFormDialogComponent {
     private dialogRef: MatDialogRef<UserFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { user?: IUser }
   ) {
+    console.log(data?.user);
     this.userForm = this.fb.group({
       US_Nom: [data?.user?.US_Nom ?? null, Validators.required],
       US_Cognoms: [data?.user?.US_Cognoms ?? null, Validators.required],
       US_Email: [data?.user?.US_Email ?? null, [Validators.required, Validators.email]],
     });
+    if (data?.user) {
+      console.log(data.user);      
+      this.userForm.markAllAsTouched();
+    }
   }
 
   get f() {
@@ -47,7 +52,14 @@ export class UserFormDialogComponent {
 
   onSave() {
     if (this.userForm.valid) {
-      this.dialogRef.close(this.userForm.value);
+      const u: IUser = {
+        ...this.userForm.value,
+      }
+      if (this.data?.user) {
+        u.US_Id = this.data.user.US_Id;
+        console.log("u for update", u);
+      }    
+      this.dialogRef.close(u);
     }
   }
 
